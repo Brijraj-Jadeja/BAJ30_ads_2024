@@ -7,6 +7,12 @@ import tables
 import mongodb
 import sqlite"""
 
+import requests
+import httplib2
+import oauth2
+import tables
+import mongodb
+import sqlite
 # This file accesses the data
 
 """Place commands in this file to access the data electronically. Don't remove any missing values,
