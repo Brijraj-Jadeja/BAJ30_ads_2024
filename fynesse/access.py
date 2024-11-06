@@ -47,17 +47,17 @@ def download_price_paid_data(year_from, year_to):
 def single_file_download(file_url : str, file_name : str, file_type : str = "csv", isZipped : bool = False) -> None:
     full_file_name = file_name + '.' +  file_type + ".zip" if isZipped else ""
     print("Downloading", full_file_name)
-    response = requests.get(url)
+    response = requests.get(file_url)
 
     if response.status_code == 200:
         print("Downloaded", full_file_name)
-        with open("." + full_file_name, "wb") as file:
+        with open("./" + full_file_name, "wb") as file:
             file.write(response.content)
         print("Saved", full_file_name)
         if isZipped:
             print("Unzipping", full_file_name)
-            with zipfile.ZipFile("." + full_file_name, "r") as zip_ref:
-                zip_ref.extractall(".")
+            with zipfile.ZipFile("./" + full_file_name, "r") as zip_ref:
+                zip_ref.extractall("./")
             print("Unzipped", full_file_name)
     else:
         print("Connection Failed")
