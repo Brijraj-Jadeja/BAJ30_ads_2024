@@ -44,8 +44,8 @@ def download_price_paid_data(year_from, year_to):
                 with open("." + file_name.replace("<year>", str(year)).replace("<part>", str(part)), "wb") as file:
                     file.write(response.content)
 
-def single_file_download(file_url : str, file_name : str, file_type : str = "csv", isZipped : bool = False) -> None:
-    full_file_name = file_name + '.' +  file_type + ".zip" if isZipped else ""
+def single_file_download(file_url : str, file_name : str, isZipped : bool = False) -> None:
+    full_file_name = file_name + ".zip" if isZipped else ""
     print("Downloading", full_file_name)
     response = requests.get(file_url)
 
@@ -57,6 +57,7 @@ def single_file_download(file_url : str, file_name : str, file_type : str = "csv
         if isZipped:
             print("Unzipping", full_file_name)
             with zipfile.ZipFile("./" + full_file_name, "r") as zip_ref:
+                zip_ref.printdir()
                 zip_ref.extractall("./")
             print("Unzipped", full_file_name)
     else:
