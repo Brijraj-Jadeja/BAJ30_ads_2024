@@ -11,7 +11,7 @@ import requests
 import zipfile
 import csv
 import time
-import PyMySQL
+import pymysql
 #import httplib2
 #import oauth2
 #import tables
