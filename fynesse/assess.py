@@ -40,32 +40,30 @@ def df_to_radar_map(total_data_frame, scaled_total_array):
     fig = go.Figure()
 
     for i in range(len(total_data_frame)):
-    fig.add_trace(go.Scatterpolar(
-            r=scaled_total_df.iloc[i],
-            theta=categories,
-            fill='toself',
-            connectgaps=True,
-            name = str(total_data_frame.iloc[i,0]) + ", " + str(total_data_frame.iloc[i,-1])
-    ))
-    fig.update_layout(
+        fig.add_trace(go.Scatterpolar(
+                r=scaled_total_df.iloc[i],
+                theta=categories,
+                fill='toself',
+                connectgaps=True,
+                name = str(total_data_frame.iloc[i,0]) + ", " + str(total_data_frame.iloc[i,-1])
+        ))
+        fig.update_layout(
     polar=dict(
-        radialaxis=dict(
-        visible=True,
-        range=[-2, 3]
-        )),
-    showlegend=True
-    )
+            radialaxis=dict(
+            visible=True,
+            range=[-2, 3]
+            )),
+        showlegend=True
+        )
 
     fig.show()
 
 import plotly.express as px
 def distance_matrix_heatmap(distance_matrix):
     distance_matrix = pd.DataFrame(index=total_data_frame['Location'], columns=total_data_frame['Location'])
-
     for i in total_data_frame['Location']:
         for j in total_data_frame['Location']:
             distance_matrix.loc[i,j] = address.coordinate_distance_in_km(locations_dict[i], locations_dict[j])
-
         
     fig = px.imshow(distance_matrix.mul(1),color_continuous_scale='Viridis_r',title="Location KM Distance Heatmap")
     fig.show()
