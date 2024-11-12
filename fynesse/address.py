@@ -35,7 +35,7 @@ def plot_k_means_feature_inertia(total_data_frame):
     plt.ylabel("SSE")
     plt.show()
 
-def run_k_means(input_frame : pandas.DataFrame, clusters):
+def run_k_means(input_frame : pd.DataFrame, clusters):
     frame_to_scale = input_frame.loc[:, input_frame.columns != 'Location']
     scaled_frame_array = StandardScaler().fit_transform(frame_to_scale)
     kmeans = KMeans(n_clusters=4, random_state=12112024)
