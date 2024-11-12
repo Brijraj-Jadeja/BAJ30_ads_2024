@@ -59,11 +59,7 @@ def df_to_radar_map(total_data_frame, scaled_total_array):
     fig.show()
 
 import plotly.express as px
-def distance_matrix_heatmap(distance_matrix):
-    distance_matrix = pd.DataFrame(index=total_data_frame['Location'], columns=total_data_frame['Location'])
-    for i in total_data_frame['Location']:
-        for j in total_data_frame['Location']:
-            distance_matrix.loc[i,j] = address.coordinate_distance_in_km(locations_dict[i], locations_dict[j])
-        
-    fig = px.imshow(distance_matrix.mul(1),color_continuous_scale='Viridis_r',title="Location KM Distance Heatmap")
+
+def heatmap(matrix, title="generic"):
+    fig = px.imshow(matrix.mul(1),color_continuous_scale='Viridis_r',title="Location KM Distance Heatmap")
     fig.show()
