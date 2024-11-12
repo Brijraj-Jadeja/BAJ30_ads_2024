@@ -4,6 +4,7 @@ from . import access
 from . import address
 import plotly.graph_objects as go
 import pandas as pd
+import csv
 
 """These are the types of import we might expect in this file
 import pandas
@@ -63,3 +64,16 @@ import plotly.express as px
 def heatmap(matrix, title="generic"):
     fig = px.imshow(matrix.mul(1),color_continuous_scale='Viridis_r',title="Location KM Distance Heatmap")
     fig.show()
+def price_location_joiner(build_geo, csv_name):
+  col_vals = ["Price", "Date", "Postcode", "Property_Type", "New_build", "Tenure", "locality",  "town_city",  "district",  "county",  "country",  "latitude",  "longitude","db_id", "primary_name", "secondary_name","street"]
+  df = pd.read_csv(csv_name, names = col_vals, header=None, index_col=False)
+  df['full_name'] = str(df['secondary_name'].fillna('') + df['primary_name'])
+  df = df.drop(columns=["Property_Type", "New_build", "Tenure", "locality",  "town_city",  "district",  "county",  "country", "db_id"])
+
+  build_geo = build_geo[build_geo['valid_address'] == True]
+  build_geo['addr:street'] = build_geo['addr:street'].str.upper()
+
+  output_df = pd.merge(df, build_geo,
+                      left_on=['street', 'primary_name'],
+                      right_on=['addr:street', 'addr:housenumber'],
+                      how='inner')
