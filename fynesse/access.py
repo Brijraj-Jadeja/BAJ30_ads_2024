@@ -7,6 +7,7 @@ import tables
 import mongodb
 import sqlite"""
 
+import math
 import requests
 import zipfile
 import csv
@@ -14,6 +15,7 @@ import time
 import pymysql
 import pandas as pd
 import osmnx as ox
+import math
 #import httplib2
 #import oauth2
 #import tables
