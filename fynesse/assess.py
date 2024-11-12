@@ -77,3 +77,4 @@ def price_location_joiner(build_geo, csv_name):
                       left_on=['street', 'primary_name'],
                       right_on=['addr:street', 'addr:housenumber'],
                       how='inner')
+return output_df
