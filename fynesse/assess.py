@@ -6,6 +6,7 @@ import plotly.graph_objects as go
 import pandas as pd
 import csv
 import matplotlib.pyplot as plt
+import numpy as np
 """These are the types of import we might expect in this file
 import pandas
 import bokeh
