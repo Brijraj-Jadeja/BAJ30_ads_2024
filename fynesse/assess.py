@@ -62,7 +62,7 @@ def df_to_radar_map(total_data_frame, scaled_total_array):
 import plotly.express as px
 
 def heatmap(matrix, title="generic"):
-    fig = px.imshow(matrix.mul(1),color_continuous_scale='Viridis_r',title="Location KM Distance Heatmap")
+    fig = px.imshow(matrix.mul(1),color_continuous_scale='Viridis_r',title="Heatmap")
     fig.show()
 def price_location_joiner(build_geo, csv_name):
     col_vals = ["Price", "Date", "Postcode", "Property_Type", "New_build", "Tenure", "locality",  "town_city",  "district",  "county",  "country",  "latitude",  "longitude","db_id", "primary_name", "secondary_name","street"]
@@ -78,3 +78,38 @@ def price_location_joiner(build_geo, csv_name):
                         right_on=['addr:street', 'addr:housenumber'],
                         how='inner')
     return output_df
+
+def predict_age_profile(Parameter_prior, correct_values, generated_coefficients):
+    Parameter_prior = pd.concat([Parameter_prior, pd.Series([1], index=['Linear_term'])])
+    prediction = []
+    for age in range(100):
+        model_params = generated_coefficients.iloc[age].values
+
+        predicted_proportion = np.dot(Parameter_prior, model_params)
+        prediction.append(predicted_proportion)
+            
+    predicted_age_profile = pd.Series(prediction, index=[i for i in range(100)])
+
+    plt.figure(figsize=(10, 6))
+    plt.plot(predicted_age_profile.index, predicted_age_profile.values, color='orange', label='Predicted')
+    plt.plot(correct_values.index, correct_values.values, label='Actual', color ='blue')
+    plt.xlabel('x')
+    plt.ylabel('y')
+    plt.title(f'Predicted vs. Actual')
+    plt.legend()
+    plt.show()
+
+def correlation_plot(y,predicted):
+    plt.figure(figsize=(8, 6))
+    plt.scatter(y, predicted, alpha=0.5)
+    plt.xlabel("Actual Values")
+    plt.ylabel("Predicted Values")
+    plt.title("Correlation between Predicted and Actual Values")
+
+    plt.plot([min(y), max(y)], [min(y), max(y)], linestyle='--', color='red')
+
+    plt.show()
+
+
+    correlation = y.corr(predicted)
+    print(correlation)
