@@ -5,7 +5,7 @@ from . import address
 import plotly.graph_objects as go
 import pandas as pd
 import csv
-
+import matplotlib.pyplot as plt
 """These are the types of import we might expect in this file
 import pandas
 import bokeh
