@@ -305,23 +305,23 @@ def download_geo_data_csv(base_dir=''):
   print(f"Files downloaded to: {extract_dir}")
 
   def create_db_table(conn,table_name, db_field_type_pairs, db_name ='ads_2024'):
-  curr = conn.cursor()
-  use_query = f'USE {db_name};'
-  curr.execute(use_query)
-  drop_query = f"DROP TABLE IF EXISTS {table_name};"
+    curr = conn.cursor()
+    use_query = f'USE {db_name};'
+    curr.execute(use_query)
+    drop_query = f"DROP TABLE IF EXISTS {table_name};"
 
-  curr.execute(drop_query)
-  create_query = f"CREATE TABLE IF NOT EXISTS {table_name} ("
-  for db_field_type_pair in db_field_type_pairs:
-    create_query += f"{db_field_type_pair[0]} {db_field_type_pair[1]}" + (" COLLATE utf8_bin" if db_field_type_pair[2] else "") + " NOT NULL, "
+    curr.execute(drop_query)
+    create_query = f"CREATE TABLE IF NOT EXISTS {table_name} ("
+    for db_field_type_pair in db_field_type_pairs:
+        create_query += f"{db_field_type_pair[0]} {db_field_type_pair[1]}" + (" COLLATE utf8_bin" if db_field_type_pair[2] else "") + " NOT NULL, "
 
-  create_query += "db_id bigint(20) unsigned NOT NULL "
-  create_query = create_query + ") DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;"
-  curr.execute(create_query)
-  curr.execute(f'ALTER TABLE {table_name} ADD PRIMARY KEY (db_id);')
-  curr.execute(f'ALTER TABLE {table_name} MODIFY db_id bigint(20) unsigned NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;')
-  print(f"Table '{table_name}' created.")
-  conn.commit()
+    create_query += "db_id bigint(20) unsigned NOT NULL "
+    create_query = create_query + ") DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;"
+    curr.execute(create_query)
+    curr.execute(f'ALTER TABLE {table_name} ADD PRIMARY KEY (db_id);')
+    curr.execute(f'ALTER TABLE {table_name} MODIFY db_id bigint(20) unsigned NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;')
+    print(f"Table '{table_name}' created.")
+    conn.commit()
 
 def drop_db_table(conn, table_name):
   drop_query = f"DROP TABLE IF EXISTS {table_name};"
