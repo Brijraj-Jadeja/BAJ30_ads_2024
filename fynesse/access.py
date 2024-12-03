@@ -305,7 +305,7 @@ def download_geo_data_csv(base_dir=''):
 
   print(f"Files downloaded to: {extract_dir}")
 
-  def create_db_table(conn,table_name, db_field_type_pairs, db_name ='ads_2024'):
+def create_db_table(conn,table_name, db_field_type_pairs, db_name ='ads_2024'):
     curr = conn.cursor()
     use_query = f'USE {db_name};'
     curr.execute(use_query)
