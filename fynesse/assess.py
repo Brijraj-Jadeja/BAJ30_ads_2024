@@ -7,6 +7,25 @@ import pandas as pd
 import csv
 import matplotlib.pyplot as plt
 import numpy as np
+import numpy as np
+import osmnx as ox
+import fynesse
+import requests
+import zipfile
+import io
+import os
+import pandas as pd
+import geopandas as gpd
+import yaml
+import shapely
+import sqlalchemy
+import tqdm
+import osmium
+import sys
+import matplotlib.pyplot as plt
+import statsmodels.api as sm
+from ipywidgets import interact_manual, Text, Password
+
 """These are the types of import we might expect in this file
 import pandas
 import bokeh
