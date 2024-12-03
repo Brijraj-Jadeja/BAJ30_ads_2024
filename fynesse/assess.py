@@ -24,6 +24,8 @@ import osmium
 import sys
 import matplotlib.pyplot as plt
 import statsmodels.api as sm
+from access import *
+from address import *
 from ipywidgets import interact_manual, Text, Password
 
 """These are the types of import we might expect in this file

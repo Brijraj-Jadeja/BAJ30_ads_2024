@@ -17,6 +17,8 @@ import scipy.stats"""
 """Address a particular question that arises from the data"""
 from sklearn.cluster import KMeans
 from sklearn.preprocessing import StandardScaler
+from access import *
+from assess import *
 import pandas as pd
 import numpy as np
 import osmnx as ox
