@@ -7,6 +7,8 @@ import tables
 import mongodb
 import sqlite"""
 
+from . import assess
+from . import address
 import math
 import requests
 import zipfile
@@ -28,8 +30,7 @@ import sqlalchemy
 import tqdm
 import osmium
 import sys
-from address import *
-from assess import *
+
 import matplotlib.pyplot as plt
 import statsmodels.api as sm
 from ipywidgets import interact_manual, Text, Password
