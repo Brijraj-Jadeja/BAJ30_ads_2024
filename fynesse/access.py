@@ -222,7 +222,7 @@ def download_census_data(code, base_dir=''):
 
   print(f"Files extracted to: {extract_dir}")
 
-def download_data(url, base_dir='',folder_name, is_zipped = False):
+def download_data(url, folder_name, base_dir='', is_zipped = False):
 
   if os.path.exists(folder_name) and os.listdir(folder_name):
     print(f"Files already exist at: {extract_dir}.")
