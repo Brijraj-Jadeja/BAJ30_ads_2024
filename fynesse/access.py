@@ -222,6 +222,25 @@ def download_census_data(code, base_dir=''):
 
   print(f"Files extracted to: {extract_dir}")
 
+def download_data(url, base_dir='',folder_name, is_zipped = False):
+
+  if os.path.exists(folder_name) and os.listdir(folder_name):
+    print(f"Files already exist at: {extract_dir}.")
+    return
+
+  os.makedirs(folder_name, exist_ok=True)
+  response = requests.get(url)
+  response.raise_for_status()
+
+  if is_zipped:
+    with zipfile.ZipFile(io.BytesIO(response.content)) as zip_ref:
+        zip_ref.extractall(folder_name)
+
+    print(f'Files extracted to: {folder_name}')
+
+def load_data(file_path):
+    return pd.read_csv(file_path)
+
 def load_census_data(code, level='oa'):
   return pd.read_csv(f'census2021-{code.lower()}/census2021-{code.lower()}-{level}.csv')
 
