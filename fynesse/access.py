@@ -224,18 +224,20 @@ def download_census_data(code, base_dir=''):
 
 def download_data(url, folder_name, base_dir='', is_zipped = False):
 
-  if os.path.exists(folder_name) and os.listdir(folder_name):
-    print(f"Files already exist at: {extract_dir}.")
-    return
+    if os.path.exists(folder_name) and os.listdir(folder_name):
+        print(f'Files already exist at: {folder_name}')
+        return
 
-  os.makedirs(folder_name, exist_ok=True)
-  response = requests.get(url)
-  response.raise_for_status()
+    os.makedirs(folder_name, exist_ok=True)
+    response = requests.get(url)
+    response.raise_for_status()
 
-  if is_zipped:
-    with zipfile.ZipFile(io.BytesIO(response.content)) as zip_ref:
-        zip_ref.extractall(folder_name)
-
+    if is_zipped:
+        with zipfile.ZipFile(io.BytesIO(response.content)) as zip_ref:
+            zip_ref.extractall(folder_name)
+    else:
+        with open("response.jpg", "wb") as f:
+            f.write(response.content)
     print(f'Files extracted to: {folder_name}')
 
 def load_data(file_path):
@@ -418,8 +420,6 @@ def upload_polygon_features(conn, geo_gdf, tags, table_name="output_area_feature
             conn.rollback() # rollback transaction if any error occurs
 
     print(f"Features uploaded to table '{table_name}'.")
-
-
 def query_db_table_to_dataframe(conn, query):
     return pd.read_sql_query(query, con=conn)
 
