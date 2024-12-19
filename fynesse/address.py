@@ -227,4 +227,4 @@ def produce_linear_model(augmented_training_df, answer_df, answer_col_name,print
   if print_corr:
     correlation = pd.Series(y).corr(pd.Series(y_pred_linear_aug['mean']))
     print(correlation)
-  return results_basis_aug.params
+  return results_basis_aug
