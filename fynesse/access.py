@@ -429,3 +429,29 @@ def query_db_table_to_geodataframe(conn, query):
     gdf = gpd.GeoDataFrame(df, geometry='geometry')
     gdf.crs = 'EPSG:4326'
     return gdf
+
+
+def download_data_from_gov(url, folder_name = None, headers = {}, base_dir='', is_zipped = False):
+  if is_zipped:
+    extract_dir = os.path.join(base_dir, os.path.splitext(os.path.basename(url))[0])
+    if os.path.exists(extract_dir) and os.listdir(extract_dir):
+      print(f"Files already exist at: {extract_dir}.")
+      return
+    os.makedirs(extract_dir, exist_ok=True)
+  else:
+    file_name = os.path.join(base_dir, os.path.splitext(os.path.basename(url))[0])
+    os.makedirs(folder_name, exist_ok=True)
+  session = requests.session()
+  session.headers['User-Agent'] = 'Custom user agent'
+  cook = { '__cf_bm' : '8N3isPX6tmagbyOJ00BKc2nqzzcwGK3vCk9ju.NQvhQ-1733266402-1.0.1.1-nGNIqh6ljdkVH3mpd9d1p_qJZt1jCIkLzkwX42wJA06YOzIKFSu_nrs_PUBDJPE0okkWqcbnFpcb0kiJiVKk0w'}
+  response = session.get(url,headers=headers, cookies=cook)
+  response.raise_for_status()
+
+  if is_zipped:
+      with zipfile.ZipFile(io.BytesIO(response.content)) as zip_ref:
+          zip_ref.extractall(extract_dir)
+      print(f'Files extracted to: {extract_dir}')
+  else:
+      with open(os.path.join(folder_name, file_name), 'wb') as f:
+          f.write(response.content)
+      print(f'Files extracted to: {folder_name}')
