@@ -421,6 +421,13 @@ def upload_polygon_features(conn, geo_gdf, tags, table_name="output_area_feature
 
     print(f"Features uploaded to table '{table_name}'.")
 def query_db_table_to_dataframe(conn, query):
+  """
+    Queries a database
+
+    Args:
+        conn: Database connection object
+        query
+    """
     return pd.read_sql_query(query, con=conn)
 
 def query_db_table_to_geodataframe(conn, query):
@@ -432,6 +439,16 @@ def query_db_table_to_geodataframe(conn, query):
 
 
 def download_data_from_gov(url, folder_name = None, headers = {}, base_dir='', is_zipped = False):
+  """
+    Downloads a file from a gov website
+
+    Args:
+        url : address of data
+        folder_name :output folder name
+        headers : HTTP get headers
+        base_dir
+        is_zipped
+    """
   if is_zipped:
     extract_dir = os.path.join(base_dir, os.path.splitext(os.path.basename(url))[0])
     if os.path.exists(extract_dir) and os.listdir(extract_dir):
